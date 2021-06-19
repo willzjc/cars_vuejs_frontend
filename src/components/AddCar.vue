@@ -8,58 +8,58 @@
           class="form-control"
           id="title"
           required
-          v-model="tutorial.title"
+          v-model="car.title"
           name="title"
         />
       </div>
 
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="make">Make</label>
         <input
           class="form-control"
-          id="description"
+          id="make"
           required
-          v-model="tutorial.description"
-          name="description"
+          v-model="car.make"
+          name="make"
         />
       </div>
 
-      <button @click="saveTutorial" class="btn btn-success">Submit</button>
+      <button @click="saveCar" class="btn btn-success">Submit</button>
     </div>
 
     <div v-else>
       <h4>You submitted successfully!</h4>
-      <button class="btn btn-success" @click="newTutorial">Add</button>
+      <button class="btn btn-success" @click="newCar">Add</button>
     </div>
   </div>
 </template>
 
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import CarDataService from "../services/CarDataService";
 
 export default {
-  name: "add-tutorial",
+  name: "add-car",
   data() {
     return {
-      tutorial: {
+      car: {
         id: null,
         title: "",
-        description: "",
+        make: "",
         published: false
       },
       submitted: false
     };
   },
   methods: {
-    saveTutorial() {
+    saveCar() {
       var data = {
-        title: this.tutorial.title,
-        description: this.tutorial.description
+        title: this.car.title,
+        make: this.car.make
       };
 
-      TutorialDataService.create(data)
+      CarDataService.create(data)
         .then(response => {
-          this.tutorial.id = response.data.id;
+          this.car.id = response.data.id;
           console.log(response.data);
           this.submitted = true;
         })
@@ -68,9 +68,9 @@ export default {
         });
     },
     
-    newTutorial() {
+    newCar() {
       this.submitted = false;
-      this.tutorial = {};
+      this.car = {};
     }
   }
 };
